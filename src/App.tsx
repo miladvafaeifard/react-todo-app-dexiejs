@@ -46,29 +46,36 @@ const App = ({ ...props }: Props) => {
       <div className='card white darken-1'>
         <div className='card-content'>
           {tasks?.map(task => (
-            <div className='row' key={task.id}>
-              <p className='col s10'>
-                <label>
-                  <input
-                    onChange={() => toggleTask(task.id, task.completed)}
-                    type='checkbox'
-                    checked={task.completed}
-                    className='checkbox-blue'
-                  />
-                  <span
-                    className={`black-text ${task.completed && 'strike-text'}`}
-                  >
-                    {task.title}
-                  </span>
-                </label>
-              </p>
-              <i
-                onClick={() => deleteTask(task.id)}
-                className='col s2 material-icons delete-button'
-              >
-                delete
-              </i>
-            </div>
+            <ul className='row' key={task.id}>
+              <li>
+                <p className='col s10'>
+                  <label>
+                    <input
+                      onChange={() => toggleTask(task.id, task.completed)}
+                      type='checkbox'
+                      checked={task.completed}
+                      className='checkbox-blue'
+                    />
+                    <span
+                      className={`black-text ${task.completed && 'strike-text'}`}
+                    >
+                      {task.title}
+                    </span>
+                  </label>
+                </p>
+                <i
+                  onClick={() => deleteTask(task.id)}
+                  className='col s2 material-icons delete-button'
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      deleteTask(task.id)
+                    }
+                  }}
+                >
+                  delete
+                </i>
+              </li>
+            </ul>
           ))}
         </div>
       </div>
