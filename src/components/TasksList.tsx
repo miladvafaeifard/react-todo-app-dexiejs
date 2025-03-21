@@ -1,8 +1,9 @@
 import type React from 'react'
-import type { Task } from '../context'
+import type { Task as TypeType } from '../context'
+import Task from './Task'
 
 interface Props {
-  tasks: ReadonlyArray<Task>
+  tasks: ReadonlyArray<TypeType>
   onToggleTask: (id: number, completed: boolean) => void
   onDeleteTask: (id: number) => void
 }
@@ -11,38 +12,16 @@ const TasksList: React.FC<Props> = ({ tasks, onToggleTask, onDeleteTask }) => {
   return (
     <div className='card white darken-1'>
       <div className='card-content'>
-        {tasks?.map(task => (
-          <ul className='row' key={task.id}>
-            <li>
-              <p className='col s10'>
-                <label>
-                  <input
-                    onChange={() => onToggleTask(task.id, task.completed)}
-                    type='checkbox'
-                    checked={task.completed}
-                    className='checkbox-blue'
-                  />
-                  <span
-                    className={`black-text ${task.completed && 'strike-text'}`}
-                  >
-                    {task.title}
-                  </span>
-                </label>
-              </p>
-              <i
-                onClick={() => onDeleteTask(task.id)}
-                className='col s2 material-icons delete-button'
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    onDeleteTask(task.id)
-                  }
-                }}
-              >
-                delete
-              </i>
-            </li>
-          </ul>
-        ))}
+        <ul className='row'>
+          {tasks?.map(task => (
+            <Task
+              key={task.id}
+              task={task}
+              onToggle={onToggleTask}
+              onDelete={onDeleteTask}
+            />
+          ))}
+        </ul>
       </div>
     </div>
   )

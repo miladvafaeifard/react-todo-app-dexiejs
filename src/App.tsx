@@ -28,7 +28,7 @@ const App = () => {
   const deleteTask = async (id: number) => await todoService.deleteTodo(id)
 
   const toggleTask = async (id: number, completed: boolean) =>
-    await todoService.toggleTodo(id, !completed)
+    await todoService.toggleTodo(id, completed)
 
   return (
     <div className='container'>
