@@ -2,17 +2,16 @@ import React from 'react'
 import './App.css'
 import { useLiveQuery } from 'dexie-react-hooks'
 
-import { TodoService } from './services/todoService'
+import type { TodoService } from './services/todoService'
 
-interface Props { 
+interface Props {
   todoService: TodoService
 }
 
 const App = ({ ...props }: Props) => {
-
   const todoService = props.todoService
   const tasks = useLiveQuery(() => todoService.getAllTodos(), [])
-  
+
   const addTask = async (event: Event) => {
     event.preventDefault()
     const task = document.querySelector('#taskInput') as HTMLInputElement | null
@@ -21,12 +20,12 @@ const App = ({ ...props }: Props) => {
       await todoService.addTodo(task.value)
       task.value = ''
     }
-
   }
 
   const deleteTask = async (id: number) => await todoService.deleteTodo(id)
 
-  const toggleTask = async (id: number, completed: boolean) => await todoService.toggleTodo(id, !completed)
+  const toggleTask = async (id: number, completed: boolean) =>
+    await todoService.toggleTodo(id, !completed)
 
   return (
     <div className="container">
@@ -46,25 +45,31 @@ const App = ({ ...props }: Props) => {
 
       <div className="card white darken-1">
         <div className="card-content">
-          {
-            tasks?.map(task => (
-              <div className="row" key={task.id}>
-                <p className="col s10">
-                  <label>
-                    <input 
-                      onChange={() => toggleTask(task.id, task.completed)}
-                    type="checkbox" checked={task.completed} className="checkbox-blue" />
-                    <span className={`black-text ${task.completed && 'strike-text'}`}>{task.title}</span>
-                  </label>
-                </p>
-                <i 
-                  onClick={() => deleteTask(task.id)}
-                  className="col s2 material-icons delete-button">
-                    delete
-                </i>
-              </div>
-            ))
-          }
+          {tasks?.map((task) => (
+            <div className="row" key={task.id}>
+              <p className="col s10">
+                <label>
+                  <input
+                    onChange={() => toggleTask(task.id, task.completed)}
+                    type="checkbox"
+                    checked={task.completed}
+                    className="checkbox-blue"
+                  />
+                  <span
+                    className={`black-text ${task.completed && 'strike-text'}`}
+                  >
+                    {task.title}
+                  </span>
+                </label>
+              </p>
+              <i
+                onClick={() => deleteTask(task.id)}
+                className="col s2 material-icons delete-button"
+              >
+                delete
+              </i>
+            </div>
+          ))}
         </div>
       </div>
     </div>
