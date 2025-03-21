@@ -1,5 +1,5 @@
-import { defineConfig } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
+import { defineConfig } from '@rsbuild/core'
+import { pluginReact } from '@rsbuild/plugin-react'
 
 export default defineConfig({
   plugins: [pluginReact()],
@@ -15,11 +15,12 @@ export default defineConfig({
     },
   },
   server: {
-    base: process.env.NODE_ENV === 'production' ? '/react-todo-app-dexiejs' : '/',
+    base:
+      process.env.NODE_ENV === 'production' ? '/react-todo-app-dexiejs' : '/',
   },
   output: {
     distPath: {
       root: process.env.NODE_ENV === 'production' ? './build' : './dist',
     },
   },
-});
+})

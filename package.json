@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "rsbuild dev --open",
     "dev:build": "NODE_ENV=development rsbuild build",
-    "check": "biome check --write",
-    "format": "biome format --write",
+    "dev:check": "biome check --write",
+    "dev:format": "biome format --write",
+    "check": "tsc --noEmit && biome check",
     "preview": "rsbuild preview",
     "build": "rsbuild build"
   },
@@ -20,6 +21,10 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@rsbuild/core": "^1.2.16",
-    "@rsbuild/plugin-react": "^1.1.1"
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@types/node": "^22.13.11",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "typescript": "^5.8.2"
   }
 }

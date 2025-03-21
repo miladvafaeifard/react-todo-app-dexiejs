@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { type FormEvent } from 'react'
+import { useContext } from 'react'
 import './App.css'
 import { useLiveQuery } from 'dexie-react-hooks'
+import { TodoServiceContext } from './context'
+import { die } from './util/helpers'
 
-import type { TodoService } from './services/todoService'
-
-interface Props {
-  todoService: TodoService
-}
-
-const App = ({ ...props }: Props) => {
-  const todoService = props.todoService
+const App = () => {
+  const todoService =
+    useContext(TodoServiceContext) || die('todo service is not provided.')
   const tasks = useLiveQuery(() => todoService.getAllTodos(), [])
 
-  const addTask = async (event: Event) => {
+  const addTask = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const task = document.querySelector('#taskInput') as HTMLInputElement | null
 
@@ -42,6 +40,8 @@ const App = ({ ...props }: Props) => {
           Add
         </button>
       </form>
+
+      {/* <TasksList  */}
 
       <div className='card white darken-1'>
         <div className='card-content'>
