@@ -7,7 +7,7 @@ import { die } from './util/helpers'
 
 const App = () => {
   const todoService =
-    useContext(TodoServiceContext)
+    useContext(TodoServiceContext) || die('todo service is not provided.')
   const tasks = useLiveQuery(() => todoService.getAllTodos(), [])
 
   const addTask = async (event: FormEvent<HTMLFormElement>) => {
