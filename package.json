@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rsbuild build",
+    "build": "NODE_ENV=development rsbuild build",
     "check": "biome check --write",
     "dev": "rsbuild dev --open",
     "format": "biome format --write",
-    "preview": "rsbuild preview"
+    "preview": "rsbuild preview",
+    "ci": "rsbuild build"
   },
   "dependencies": {
     "dexie": "^4.0.11",

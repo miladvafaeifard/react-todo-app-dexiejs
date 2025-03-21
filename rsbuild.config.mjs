@@ -6,4 +6,9 @@ export default defineConfig({
   html: {
     template: 'public/index.html',
   },
+  output: {
+    distPath: {
+      root: process.env.NODE_ENV === 'production' ? './build' : './dist'
+    }
+  }
 })
