@@ -1,5 +1,7 @@
 # Rsbuild project
 
+![alt text](app.png)
+
 ## Setup
 
 Install the dependencies:
