@@ -7,6 +7,7 @@
     "dev": "rsbuild dev --open",
     "dev:build": "NODE_ENV=development rsbuild build",
     "dev:check": "biome check --write",
+    "dev:tscheck": "tsc --noEmit",
     "dev:format": "biome format --write",
     "check": "tsc --noEmit && biome check",
     "preview": "rsbuild preview",
