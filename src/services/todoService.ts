@@ -1,13 +1,14 @@
 import { type Todo, todos } from './repoService'
 
 export interface TodoService {
-  readonly getAllTodos: () => Promise<Todo[]>
+  readonly getAllTodos: () => Promise<ReadonlyArray<Todo>>
   readonly addTodo: (title: string) => Promise<void>
   readonly deleteTodo: (id: number) => Promise<void>
   readonly toggleTodo: (id: number, completed: boolean) => Promise<void>
 }
 
-const getAllTodos = async (): Promise<Todo[]> => await todos.toArray()
+const getAllTodos = async (): Promise<ReadonlyArray<Todo>> =>
+  await todos.toArray()
 
 const addTodo = async (title: string): Promise<void> => {
   await todos.add({
