@@ -1,37 +1,32 @@
 import React from 'react'
 import './App.css'
-import { Dexie } from 'dexie'
 import { useLiveQuery } from 'dexie-react-hooks'
 
-const db = new Dexie('todoApp')
-db.version(1).stores({
-  todos: '++id,title,completed,date'
-})
+import { TodoService } from './services/todoService'
 
-const { todos } = db;
+interface Props { 
+  todoService: TodoService
+}
 
-const App = () => {
+const App = ({ ...props }: Props) => {
 
-  const tasks = useLiveQuery(() => todos.toArray(), [])
+  const todoService = props.todoService
+  const tasks = useLiveQuery(() => todoService.getAllTodos(), [])
   
-  const addTask = async (event) => {
+  const addTask = async (event: Event) => {
     event.preventDefault()
-    const task = document.querySelector('#taskInput')
+    const task = document.querySelector('#taskInput') as HTMLInputElement | null
 
-    if (task.value) {
-      await todos.add({
-        title: task.value,
-        completed: false,
-        date: new Date().toLocaleString()
-      })
+    if (task?.value) {
+      await todoService.addTodo(task.value)
+      task.value = ''
     }
 
-    task.value = ''
   }
 
-  const deleteTask = async (id) => await todos.delete(id)
+  const deleteTask = async (id: number) => await todoService.deleteTodo(id)
 
-  const toggleTask = async (id, completed) => await todos.update(id, { completed: !completed })
+  const toggleTask = async (id: number, completed: boolean) => await todoService.toggleTodo(id, !completed)
 
   return (
     <div className="container">
