@@ -28,32 +28,32 @@ const App = ({ ...props }: Props) => {
     await todoService.toggleTodo(id, !completed)
 
   return (
-    <div className="container">
-      <h3 className="teal-text center-align">Todo App</h3>
-      <form className="add-item-form" onSubmit={addTask}>
+    <div className='container'>
+      <h3 className='teal-text center-align'>Todo App</h3>
+      <form className='add-item-form' onSubmit={addTask}>
         <input
-          id="taskInput"
-          type="text"
-          className="itemField"
-          placeholder="What do you want to do today?"
+          id='taskInput'
+          type='text'
+          className='itemField'
+          placeholder='What do you want to do today?'
           required
         />
-        <button type="submit" className="waves-effect btn teal right">
+        <button type='submit' className='waves-effect btn teal right'>
           Add
         </button>
       </form>
 
-      <div className="card white darken-1">
-        <div className="card-content">
-          {tasks?.map((task) => (
-            <div className="row" key={task.id}>
-              <p className="col s10">
+      <div className='card white darken-1'>
+        <div className='card-content'>
+          {tasks?.map(task => (
+            <div className='row' key={task.id}>
+              <p className='col s10'>
                 <label>
                   <input
                     onChange={() => toggleTask(task.id, task.completed)}
-                    type="checkbox"
+                    type='checkbox'
                     checked={task.completed}
-                    className="checkbox-blue"
+                    className='checkbox-blue'
                   />
                   <span
                     className={`black-text ${task.completed && 'strike-text'}`}
@@ -64,7 +64,7 @@ const App = ({ ...props }: Props) => {
               </p>
               <i
                 onClick={() => deleteTask(task.id)}
-                className="col s2 material-icons delete-button"
+                className='col s2 material-icons delete-button'
               >
                 delete
               </i>
