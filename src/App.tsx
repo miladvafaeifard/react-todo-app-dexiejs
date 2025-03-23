@@ -1,14 +1,12 @@
 import React, { type FormEvent } from 'react'
-import { useContext } from 'react'
 import './App.css'
 import { useLiveQuery } from 'dexie-react-hooks'
 import TasksList from './components/TasksList'
-import { type Task, TodoServiceContext } from './context'
-import { die } from './util/helpers'
+import { type Task, useTodoService } from './context'
 
 const App = () => {
-  const todoService =
-    useContext(TodoServiceContext) || die('todo service is not provided.')
+  const todoService = useTodoService()
+
   const tasks = useLiveQuery<ReadonlyArray<Task>, ReadonlyArray<Task>>(
     () => todoService.getAllTodos(),
     [],
